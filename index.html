@@ -1,6 +1,7 @@
 <html>
 <head>
-<title>Marie Astel Gaye?</title>
+<title>Will you be my Wife?</title>
+
 <style>
 body {
 display: flex;
@@ -11,6 +12,7 @@ background-color: #ffebee;
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 overflow: hidden;
 }
+
 .card {
 background: white;
 padding: 3rem;
@@ -18,12 +20,15 @@ border-radius: 20px;
 box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 text-align: center;
 }
-h1 { color: #d32f2f; }
+
+h1 {
+color: #d32f2f;
+}
 
 .buttons {
 margin-top: 20px;
 position: relative;
-height: 60px;
+height: 80px;
 }
 
 button {
@@ -32,12 +37,13 @@ font-size: 1.2rem;
 border-radius: 50px;
 border: none;
 cursor: pointer;
-transition: transform 0.2s;
+transition: transform 0.3s ease;
 }
 
 #yesBtn {
 background-color: #ff4081;
 color: white;
+transform-origin: center;
 }
 
 #noBtn {
@@ -45,7 +51,6 @@ background-color: #eeeeee;
 position: absolute;
 left: 55%;
 }
-
 
 .celebration {
 font-size: 2rem;
@@ -63,14 +68,15 @@ animation: pop 0.6s ease forwards;
 <body>
 
 <div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" width="100" alt="heart">
-<h1>Marie Astel Gaye, will you be my WIFE?</h1>
+
+<img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" width="100">
+
+<h1>Marie Astel, will you be my WIFE?</h1>
 
 <div class="buttons">
 <button id="yesBtn">Yes</button>
 <button id="noBtn">No</button>
 </div>
-
 
 <div id="celebrationContainer"></div>
 
@@ -81,27 +87,53 @@ const noBtn = document.getElementById('noBtn');
 const yesBtn = document.getElementById('yesBtn');
 const celebrationContainer = document.getElementById('celebrationContainer');
 
+let scale = 1;
+const maxScale = 6;
+
+// 💖 style smooth
+yesBtn.style.transition = "transform 0.3s ease, box-shadow 0.3s ease";
+
+// 🎉 CLICK YES
+yesBtn.addEventListener('click', () => {
+
+// cacher boutons
+yesBtn.style.display = "none";
+noBtn.style.display = "none";
+
+// message final
+celebrationContainer.innerHTML = `
+<div class="celebration">
+🎉🥳❤️ YESSS !!! ❤️🥳🎉 <br><br>
+💍 C’est officiel maintenant 💍 <br><br>
+<img src="https://media.giphy.com/media/xT0GqeSlGSRQut9YQg/giphy.gif" width="220">
+</div>
+`;
+});
+
+// 😏 NO fuit + YES grandit
 noBtn.addEventListener('mouseover', () => {
+
+// fuite du No
 const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
 const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
 
 noBtn.style.position = 'fixed';
 noBtn.style.left = x + 'px';
 noBtn.style.top = y + 'px';
-});
 
+// agrandir Yes
+if (scale < maxScale) {
+scale += 0.4;
+yesBtn.style.transform = `scale(${scale})`;
+yesBtn.style.boxShadow = "0 0 25px #ff4da6";
+}
 
-yesBtn.addEventListener('click', () => {
-celebrationContainer.innerHTML = `
-<div class="celebration">
-🎉🥳❤️ YESSS !!! ❤️🥳🎉 <br>
-💍🔥 ALHAMDOULILAH 🔥💍 <br><br>
+// petit flash
+yesBtn.style.filter = "brightness(1.2)";
+setTimeout(() => {
+yesBtn.style.filter = "brightness(1)";
+}, 150);
 
-<img src="https://media.giphy.com/media/xT0GqeSlGSRQut9YQg/giphy.gif" width="200">
-<img src="https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif" width="200">
-
-</div>
-`;
 });
 </script>
 
